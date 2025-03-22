@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenue chez Nous !</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff8c00, #ff4d00);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .logo {
+            width: 180px;
+            margin-bottom: 20px;
+        }
+        .header {
+            font-size: 28px;
+            color: #333;
+            font-weight: bold;
+        }
+        .content {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.7;
+            padding: 0 20px;
+        }
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .card {
+            background: linear-gradient(120deg, #ff9800, #ff5722);
+            padding: 15px;
+            border-radius: 12px;
+            width: 50%;
+            box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            color: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+        }
+        .card-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            color: #ffffff;
+            background: #ff5722;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .button:hover {
+            background: #e64a19;
+            transform: scale(1.05);
+        }
+        .footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{% static 'images/lo.png' %}" alt="Logo" class="logo">
+        <h1 class="header">Bienvenue chez {{ accueil.site_name }} 🎉</h1>
+        <p class="content">
+            Bonjour <strong>{{ nom }}</strong>,<br><br>
+            Nous sommes ravis de vous accueillir dans notre communauté !  
+            Grâce à votre inscription, vous bénéficierez de nombreux avantages :
+        </p>
+
+        <!-- Conteneur des Cards alignées sur une seule ligne -->
+        <div class="cards-container">
+            <div class="card">
+                <p class="card-title">📢 Accès exclusif</p>
+                <p>Recevez en avant-première toutes nos actualités et mises à jour.</p>
+            </div>
+
+            <div class="card">
+                <p class="card-title">🎁 Promotions spéciales</p>
+                <p>Profitez d’offres exclusives et de réductions réservées à nos abonnés.</p>
+            </div>
+        </div>
+        <p class="footer">
+            📧 Contactez-nous : {{ footer.contact_email }} | 📞 {{ footer.contact_phone }}  
+
+            <br>© 2024 {{ accueil.site_name }}. Tous droits réservés.
+        </p>
+    </div>
+</body>
+</html>

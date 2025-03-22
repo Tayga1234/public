@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Blandry_shein</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style2.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center justify-content-between">
+      
+      <a href="#" class="logo">
+        <img src="{{ accueil.logo.url }}" alt="{{ accueil.site_name }}" class="img-fluid">
+      </a>
+      <h2 class="logo"><a href="#">{{accueil.site_name}}</a></h2>
+      <!-- Uncomment below if you prefer to use an image logo -->
+    
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">{{topbar.onglet1}}</a></li>
+          <li><a class="nav-link scrollto" href="#evaluation">{{topbar.onglet2}}</a></li>
+          <li><a class="nav-link scrollto " href="#contact">{{topbar.onglet3}}</a></li>
+        </ul>                                              
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container-fluid" data-aos="fade-up">
+      <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1>{{ accueil.accueil_text1 }}</h1>
+          <h2>{{ accueil.accueil_text2 }}</h2>          
+        <div>
+            <a href="#evaluation" class="btn-get-started scrollto">{{ accueil.accueil_bouton }}</a>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
+          <img src="{{ accueil.image.url }}" class="img-fluid animated" alt="">
+
+          {% if date %}
+            <div id="countdown" class="countdown"></div>
+          {% else %}
+            <h2>Vague terminée!</h2>
+            <h3>Une prochaine vague sera bientot disponible.</h3>
+          {% endif %}
+          <script>
+            var countDownDate = new Date("{{ date|date:'M d, Y H:i:s' }}").getTime();
+
+            var countdownFunction = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                var countdownElement = document.getElementById("countdown");
+                if (days < 1) {
+                    countdownElement.style.color = "red";
+                    countdownElement.classList.add("blink");
+                } else {
+                    countdownElement.style.color = "black";
+                    countdownElement.classList.remove("blink");
+                }
+
+                countdownElement.innerHTML = days + "j " + hours + "h " + minutes + "m " + seconds + "s ";
+                countdownElement.style.fontSize = "35px";
+
+                if (distance < 0) {
+                  clearInterval(countdownFunction);
+                  countdownElement.innerHTML = "Expiré ! Une nouvelle vague sera bientot disponible.";
+                  countdownElement.classList.remove("blink");
+                  countdownElement.style.fontSize = "20px"; // Adjust the size here
+                  countdownElement.style.fontWeight = "bold";
+                  countdownElement.style.color = "#FF5900";
+                  countdownElement.style.textAlign = "center";
+              }
+            }, 1000);
+          </script>
+
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="evaluation" class="about">
+      <div class="container">
+        <div class="section-title">
+          <h2>{{ evaluation.evaluation_title }}</h2>
+        </div>
+          <h3>{{ evaluation.text_calcul }}</h3>
+      </br>
+            <div class="form-container container">
+              <img src="{{ accueil.logo.url }}" alt="" class="logo">
+              
+                <form id="conversion-form">
+
+                  <div class="input-group">
+                      <label for="dollar">Valeur en Dollar ($) </label>
+                      <input type="number" id="dollar" name="dollar" oninput="convertToCFA()">
+                  </div>
+
+                  <div class="input-group">
+                      <label for="cfa">Valeur en CFA (XOF) </label>
+                      <input type="number" id="cfa" name="cfa" oninput="convertToDollar()">
+                  </div>
+                  
+                </form>
+              <p id="result"></p>
+            
+          </div>
+
+           <script>
+            function convertToDollar() {
+              const fraisLivraison = 1000;
+              const cfa = document.getElementById('cfa').value;
+              if (cfa) {
+                  const dollar = cfa / 950 - fraisLivraison;
+                  document.getElementById('result').innerText = `Valeur en Dollar : $${dollar.toFixed(2)}`;
+                  document.getElementById('dollar').value = dollar.toFixed(2);
+              } else {
+                  document.getElementById('result').innerText = '';
+                  document.getElementById('dollar').value = '';
+              }
+          }
+
+          function convertToCFA() {
+              const dollar = document.getElementById('dollar').value;
+              let exchangeRate = 950;
+
+              if (dollar && dollar <= 15) {
+                  exchangeRate = 1050;
+              }
+
+              if (dollar) {
+                  const fraisLivraison = 1000;
+                  const cfa = dollar * exchangeRate + fraisLivraison;
+                  const prixTotal = cfa + fraisLivraison;
+
+                  document.getElementById('result').innerText = `Nous offrons nos services avec une livraison gratuite.`;
+                  document.getElementById('cfa').value = cfa.toFixed(2);
+                  document.getElementById('prixtotal').innerText = `Total : ${prixTotal.toFixed(2)} FCFA`;
+              } else {
+                  document.getElementById('result').innerText = '';
+                  document.getElementById('cfa').value = '';
+                  document.getElementById('prixtotal').innerText = '';
+              }
+          }
+
+          </script>
+
+        <div class="btn-container text-center">
+          <a href="https://wa.me/22663126849?text=Bonjour,%20je%20souhaite%20commander." class="btn btn-secondary btn-lg" target="_blank">Commander</a>
+      </div>
+    </div>
+
+    </section>
+
+    <section class="nl-subscribe">
+      <div class="nl-container">
+          <h2 class="nl-title">Abonnez-vous à notre newsletter</h2>
+          <form action="{% url 'index' %}" method="POST" class="nl-form">
+              {% csrf_token %}
+              <div class="nl-row">
+                  <div class="nl-group">
+                      {{ form.nom.label_tag }}
+                      {{ form.nom }}
+                  </div>
+                  <div class="nl-group">
+                      {{ form.prenom.label_tag }}
+                      {{ form.prenom }}
+                  </div>
+              </div>
+              <div class="nl-row">
+                  <div class="nl-group">
+                      {{ form.whatsapp.label_tag }}
+                      {{ form.whatsapp }}
+                  </div>
+                  <div class="nl-group">
+                      {{ form.email.label_tag }}
+                      {{ form.email }}
+                  </div>
+              </div>
+              <button type="submit" class="nl-btn">S'abonner</button>
+          </form>
+          {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+          {% endif %}
+      </div>
+  </section>
+  
+
+
+        <!-- ======= About Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-title">
+          <h2>Contactez-nous</h2>
+          <p>Ecrivez-nous via ce reseau social</p>
+        </div>
+
+        <div class="social-links">
+          <a href="{{footer.contact_address}}" class="whatsapp" target="_blank"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        
+        <p class="col-md-4 mb-0 text-body-secondary">&copy; 2020. Tous les droits réservés</p>
+
+        <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+
+          <img src="{{ accueil.logo.url }}" alt="{{ accueil.site_name }}" class="bi me-2" width="120" height="120">
+          
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item"><a href="#hero" class="nav-link px-2 text-body-secondary">{{ topbar.onglet1}}</a></li>
+          <li class="nav-item"><a href="#evaluation" class="nav-link px-2 text-body-secondary">{{ topbar.onglet2 }}</a></li>
+          <li class="nav-item"><a href="#contact" class="nav-link px-2 text-body-secondary">{{ topbar.onglet3 }}</a></li>
+        </ul>
+        
+      </footer>
+    </div>
+
+    <div class="b-example-divider"></div>
+
+
+
+  <!-- Vendor JS Files -->
+    
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+
+</body>
+
+</html> 

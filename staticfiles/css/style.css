@@ -1,6 +1,9 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600&display=swap');
+
+
 body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
@@ -131,6 +134,8 @@ h6 {
 
 #header .logo a {
   color: #1f1732;
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif; /* Police élégante */
 }
 
 #header .logo img {
@@ -689,9 +694,14 @@ section {
   }
 }
 
+#hero .newsletter,
+#hero .container-fluid {
+  padding-top: 84px;
+}
+
 .newsletter {
   background-color: #fff;
-  padding: 20px;
+  padding: 120px 0;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%;
